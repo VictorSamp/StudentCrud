@@ -3,6 +3,7 @@ using StudentCrud.Domain.CommandHandlers;
 using StudentCrud.Domain.Interfaces.CommandHandlers;
 using StudentCrud.Domain.Interfaces.Repository;
 using StudentCrud.Infraestructure.Repository;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,12 +15,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<ICreateStudentCommandHandler, CreateStudentCommandHandler>();
 builder.Services.AddTransient<IStudentRepository, StudentRepository>();
-builder.Services.AddDbContext<StudentCrudDbContext>(options =>
-{
-    string connectionString = builder.Configuration.GetConnectionString("StudentCrudWriteModel");
-    options.UseSqlServer(connectionString, providerOptions => providerOptions.EnableRetryOnFailure());
-});
 
+builder.Services.AddDbContext<StudentCrudDbContext>(
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("StudentCrudWriteModelDb"),
+            x => x.MigrationsAssembly("StudentCrud.Infraestructure")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
