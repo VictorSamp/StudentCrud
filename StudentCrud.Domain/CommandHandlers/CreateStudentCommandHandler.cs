@@ -1,11 +1,11 @@
-﻿using StudentCrud.Domain.Commands;
-using StudentCrud.Domain.Interfaces.CommandHandlers;
+﻿using MediatR;
+using StudentCrud.Domain.Commands;
 using StudentCrud.Domain.Interfaces.Repository;
 using StudentCrud.Domain.Model;
 
 namespace StudentCrud.Domain.CommandHandlers
 {
-    public class CreateStudentCommandHandler : ICreateStudentCommandHandler
+    public class CreateStudentCommandHandler : IRequestHandler<CreateStudent>
     {
         private readonly IStudentRepository _studentRepository;
 
@@ -14,16 +14,11 @@ namespace StudentCrud.Domain.CommandHandlers
             _studentRepository = repository;
         }
 
-        public void Handle(CreateStudent command)
+        public async Task Handle(CreateStudent request, CancellationToken cancellationToken)
         {
-            //Verifica se o e-mail já existe no banco
+            var student = new Student(request.FullName, request.Email);
 
-            //Se sim, emita um aviso de que já existe
-
-            //Se não, adicione o student no banco
-            var student = new Student(command.FullName, command.Email);
-
-            _studentRepository.CreateStudent(student);
+            await _studentRepository.CreateStudent(student);
         }
     }
 }

@@ -1,9 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using StudentCrud.Domain.CommandHandlers;
-using StudentCrud.Domain.Interfaces.CommandHandlers;
 using StudentCrud.Domain.Interfaces.Repository;
 using StudentCrud.Infraestructure.Repository;
-using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +10,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddTransient<ICreateStudentCommandHandler, CreateStudentCommandHandler>();
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
 builder.Services.AddTransient<IStudentRepository, StudentRepository>();
 
 builder.Services.AddDbContext<StudentCrudDbContext>(

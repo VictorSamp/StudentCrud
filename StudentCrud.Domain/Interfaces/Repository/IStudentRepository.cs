@@ -4,6 +4,6 @@ namespace StudentCrud.Domain.Interfaces.Repository
 {
     public interface IStudentRepository
     {
-        void CreateStudent(Student student);
+        Task CreateStudent(Student student);
     }
 }

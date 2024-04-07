@@ -1,6 +1,8 @@
-﻿namespace StudentCrud.Domain.Commands
+﻿using MediatR;
+
+namespace StudentCrud.Domain.Commands
 {
-    public class CreateStudent
+    public class CreateStudent : IRequest
     {
         public string FullName { get; set; }
         public string Email { get; set; }

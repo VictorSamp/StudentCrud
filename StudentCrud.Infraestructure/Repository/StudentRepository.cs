@@ -12,10 +12,10 @@ namespace StudentCrud.Infraestructure.Repository
             _studentCrudContext = studentCrudContext;
         }
 
-        public void CreateStudent(Student student)
+        public async Task CreateStudent(Student student)
         {
-            _studentCrudContext.Add(student);
-            _studentCrudContext.SaveChanges();
+            await _studentCrudContext.AddAsync(student);
+            await _studentCrudContext.SaveChangesAsync();
         }
     }
 }

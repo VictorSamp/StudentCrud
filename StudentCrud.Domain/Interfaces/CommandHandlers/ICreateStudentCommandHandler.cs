@@ -1,9 +1,9 @@
-﻿using StudentCrud.Domain.Commands;
+﻿using MediatR;
+using StudentCrud.Domain.Commands;
 
 namespace StudentCrud.Domain.Interfaces.CommandHandlers
 {
-    public interface ICreateStudentCommandHandler
+    public interface ICreateStudentCommandHandler : IRequestHandler<CreateStudent>
     {
-        void Handle(CreateStudent command);
     }
 }
