@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\StudentCrud.Domain\StudentCrud.Domain.csproj" />
+    <ProjectReference Include="..\StudentCrud.Infraestructure\StudentCrud.Infraestructure.csproj" />
   </ItemGroup>
 
 </Project>

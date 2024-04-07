@@ -1,21 +1,21 @@
-﻿using Microsoft.EntityFrameworkCore;
-using StudentCrud.Domain.Interfaces.Repository;
+﻿using StudentCrud.Domain.Interfaces.Repository;
 using StudentCrud.Domain.Model;
 
 namespace StudentCrud.Infraestructure.Repository
 {
     public class StudentRepository : IStudentRepository
     {
-        private readonly DbContext _dbContext;
+        private readonly StudentCrudDbContext _studentCrudContext;
 
-        public StudentRepository(DbContext dbContext)
+        public StudentRepository(StudentCrudDbContext studentCrudContext)
         {
-            _dbContext = dbContext;
+            _studentCrudContext = studentCrudContext;
         }
 
         public void CreateStudent(Student student)
         {
-            _dbContext.Add(student);
+            _studentCrudContext.Add(student);
+            _studentCrudContext.SaveChanges();
         }
     }
 }

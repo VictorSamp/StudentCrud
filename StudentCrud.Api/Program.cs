@@ -1,5 +1,8 @@
+using Microsoft.EntityFrameworkCore;
 using StudentCrud.Domain.CommandHandlers;
 using StudentCrud.Domain.Interfaces.CommandHandlers;
+using StudentCrud.Domain.Interfaces.Repository;
+using StudentCrud.Infraestructure.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +13,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<ICreateStudentCommandHandler, CreateStudentCommandHandler>();
+builder.Services.AddTransient<IStudentRepository, StudentRepository>();
+builder.Services.AddDbContext<StudentCrudDbContext>(options =>
+{
+    string connectionString = builder.Configuration.GetConnectionString("StudentCrudWriteModel");
+    options.UseSqlServer(connectionString, providerOptions => providerOptions.EnableRetryOnFailure());
+});
 
 var app = builder.Build();
 
