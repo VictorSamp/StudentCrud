@@ -1,12 +1,15 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using StudentCrud.Api.Request.Commands;
+using StudentCrud.Api.Contracts.Requests.Commands;
+using StudentCrud.Api.Contracts.Requests.Queries;
+using StudentCrud.Api.Contracts.Responses;
 using StudentCrud.Domain.Commands;
+using StudentCrud.Domain.Queries;
 
 namespace StudentCrud.Api.Controllers
 {
     [ApiController]
-    [Route("v1/student")]
+    [Route("[controller]")]
     public class StudentController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -18,9 +21,20 @@ namespace StudentCrud.Api.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetStudentByEmail([FromRoute]GetStudentByEmailRequest request, CancellationToken cancellationToken)
+        {
+            var command = new GetStudentByEmail(request.Email);
+
+            var student = await _mediator.Send(command, cancellationToken);
+
+            var response = new GetStudentByEmailResponse(student.Id, student.FullName, student.Email);
+
+            return Ok(response);
+        }
+
         [HttpPost]
-        [Route("")]
-        public async Task<IActionResult> CreateStudent(CreateStudentRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateStudent([FromBody] CreateStudentRequest request, CancellationToken cancellationToken)
         {
             var command = new CreateStudent(request.FullName, request.Email);
 

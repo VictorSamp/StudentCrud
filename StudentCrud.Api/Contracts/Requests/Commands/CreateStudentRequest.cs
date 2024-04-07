@@ -1,4 +1,4 @@
-﻿namespace StudentCrud.Api.Request.Commands
+﻿namespace StudentCrud.Api.Contracts.Requests.Commands
 {
     public class CreateStudentRequest
     {

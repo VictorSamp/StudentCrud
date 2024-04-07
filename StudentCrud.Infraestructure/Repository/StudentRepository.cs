@@ -1,4 +1,5 @@
-﻿using StudentCrud.Domain.Interfaces.Repository;
+﻿using Microsoft.EntityFrameworkCore;
+using StudentCrud.Domain.Interfaces.Repository;
 using StudentCrud.Domain.Model;
 
 namespace StudentCrud.Infraestructure.Repository
@@ -12,9 +13,14 @@ namespace StudentCrud.Infraestructure.Repository
             _studentCrudContext = studentCrudContext;
         }
 
+        public async Task<Student> GetStudentByEmail(string email)
+        {
+            return await _studentCrudContext.Students.FirstAsync(x => x.Email == email);
+        }
+
         public async Task CreateStudent(Student student)
         {
-            await _studentCrudContext.AddAsync(student);
+            await _studentCrudContext.Students.AddAsync(student);
             await _studentCrudContext.SaveChangesAsync();
         }
     }
