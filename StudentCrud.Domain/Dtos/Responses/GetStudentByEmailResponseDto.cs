@@ -1,4 +1,4 @@
-﻿using StudentCrud.Domain.Model;
+﻿using StudentCrud.Domain.Events;
 
 namespace StudentCrud.Domain.Dtos.Responses
 {

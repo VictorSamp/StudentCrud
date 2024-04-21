@@ -1,27 +1,27 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StudentCrud.Domain.Interfaces.Repository;
-using StudentCrud.Domain.Model;
+using StudentCrud.Domain.Events;
 
 namespace StudentCrud.Infraestructure.Repository
 {
     public class StudentRepository : IStudentRepository
     {
-        private readonly StudentCrudDbContext _studentCrudContext;
+        private readonly StudentCrudReadModelContext _readModelContext;
 
-        public StudentRepository(StudentCrudDbContext studentCrudContext)
+        public StudentRepository(StudentCrudReadModelContext studentCrudContext)
         {
-            _studentCrudContext = studentCrudContext;
+            _readModelContext = studentCrudContext;
         }
 
         public async Task<Student> GetStudentByEmail(string email)
         {
-            return await _studentCrudContext.Students.FirstAsync(x => x.Email == email);
+            return await _readModelContext.Students.FirstAsync(x => x.Email == email);
         }
 
-        public async Task CreateStudent(Student student)
+        public async Task Save(Student student)
         {
-            await _studentCrudContext.Students.AddAsync(student);
-            await _studentCrudContext.SaveChangesAsync();
+            await _readModelContext.Students.AddAsync(student);
+            await _readModelContext.SaveChangesAsync();
         }
     }
 }

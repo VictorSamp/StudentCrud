@@ -1,4 +1,4 @@
-﻿namespace StudentCrud.Domain.Model
+﻿namespace StudentCrud.Domain.Events
 {
     public class Student
     {
@@ -8,6 +8,7 @@
 
         public Student(string fullName, string email)
         {
+            Id = Guid.NewGuid();
             FullName = fullName;
             Email = email;
         }

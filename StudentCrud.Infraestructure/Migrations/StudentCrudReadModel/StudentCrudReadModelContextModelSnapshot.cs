@@ -8,10 +8,10 @@ using StudentCrud.Infraestructure.Repository;
 
 #nullable disable
 
-namespace StudentCrud.Infraestructure.Migrations
+namespace StudentCrud.Infraestructure.Migrations.StudentCrudReadModel
 {
-    [DbContext(typeof(StudentCrudDbContext))]
-    partial class StudentCrudDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(StudentCrudReadModelContext))]
+    partial class StudentCrudReadModelContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -22,7 +22,7 @@ namespace StudentCrud.Infraestructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("StudentCrud.Domain.Model.Student", b =>
+            modelBuilder.Entity("StudentCrud.Domain.Events.Student", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

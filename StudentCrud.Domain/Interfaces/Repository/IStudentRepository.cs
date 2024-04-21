@@ -1,4 +1,4 @@
-﻿using StudentCrud.Domain.Model;
+﻿using StudentCrud.Domain.Events;
 
 namespace StudentCrud.Domain.Interfaces.Repository
 {
@@ -6,6 +6,6 @@ namespace StudentCrud.Domain.Interfaces.Repository
     {
         Task<Student> GetStudentByEmail(string email);
 
-        Task CreateStudent(Student student);
+        Task Save(Student student);
     }
 }

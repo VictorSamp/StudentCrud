@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentCrud.Infraestructure.Repository;
 
@@ -11,11 +10,10 @@ using StudentCrud.Infraestructure.Repository;
 
 namespace StudentCrud.Infraestructure.Migrations
 {
-    [DbContext(typeof(StudentCrudDbContext))]
-    [Migration("20240407214025_InitialCreateWriteModel")]
-    partial class InitialCreateWriteModel
+    [DbContext(typeof(StudentCrudEventStoreContext))]
+    partial class StudentCrudEventStoreContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,23 +22,30 @@ namespace StudentCrud.Infraestructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("StudentCrud.Domain.Model.Student", b =>
+            modelBuilder.Entity("StudentCrud.Domain.Events.Event", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("AggregateId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FullName")
+                    b.Property<string>("EventData")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EventType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Students");
+                    b.ToTable("Events");
                 });
 #pragma warning restore 612, 618
         }

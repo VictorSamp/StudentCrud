@@ -5,28 +5,30 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace StudentCrud.Infraestructure.Migrations
 {
-    public partial class InitialCreateWriteModel : Migration
+    public partial class EventStoreInitial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Students",
+                name: "Events",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AggregateId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EventType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EventData = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Students", x => x.Id);
+                    table.PrimaryKey("PK_Events", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Students");
+                name: "Events");
         }
     }
 }
