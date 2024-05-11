@@ -1,0 +1,23 @@
+services:
+  studentcrud-api:
+    image: victorsamp/studentcrud:1.0
+    container_name: studentcrud
+    ports:
+      - 5000:80
+    networks:
+      - studentcrudbridge
+    depends_on:
+      - sql-server
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: "Senh4Fort3@360"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+    ports:
+      - "1433:1433"
+    networks:
+      - studentcrudbridge
+networks:
+  studentcrudbridge:
+    driver: bridge
