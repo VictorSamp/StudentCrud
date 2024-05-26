@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: student-crud-container
+  labels:
+    app: student-crud
+spec:
+  containers:
+    - name: student-crud-container
+      image: victorsamp/studentcrud:1.0
+      ports:
+        - containerPort: 80
+      envFrom:
+        - configMapRef:
+            name: sistema-configmap
