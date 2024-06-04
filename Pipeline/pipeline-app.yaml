@@ -1,0 +1,10 @@
+# Adiciona a regra: Quando um código for enviado pra main, execute a pipeline
+trigger:
+- main
+
+# Define qual o sistema operacional será utilizado na pipeline
+pool:
+  vmImage: ubuntu-latest
+
+# Define quais os jobs serão criados
+steps: 
